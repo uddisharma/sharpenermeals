@@ -7,6 +7,7 @@ import {
   ShoppingCartIcon,
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const navigation = [
   { name: "Categories", href: "/", current: true },
@@ -20,6 +21,7 @@ function classNames(...classes) {
 }
 
 export default function Navbar() {
+  const cartdata = useSelector((state) => state.cartitems);
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -55,7 +57,9 @@ export default function Navbar() {
                     src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
                     alt="Your Company"
                   /> */}
-                  <h1 className="text-white text-4xl">React Meals</h1>
+                  <Link to="/">
+                    <h1 className="text-white text-4xl">React Meals</h1>
+                  </Link>
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
@@ -83,7 +87,13 @@ export default function Navbar() {
                   className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                 >
                   <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
+                  <p>{cartdata ? cartdata.length : 0}</p>
+                  <Link to="/cart">
+                    <ShoppingCartIcon
+                      className="block h-6 w-6"
+                      aria-hidden="true"
+                    />
+                  </Link>
                 </button>
 
                 {/* Profile dropdown */}
